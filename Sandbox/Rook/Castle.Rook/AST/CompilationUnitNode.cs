@@ -17,11 +17,29 @@ namespace Castle.Rook.AST
 	using System;
 	using System.Collections;
 
-	public class CompilationUnitNode : AbstractDeclarationContainer
+	public class CompilationUnitNode : AbstractDeclarationContainer, INamingScope
 	{
+		private NamingScope scope = new NamingScope();
+
 		public override void Visit(IVisitor visitor)
 		{
 			visitor.OnCompilationUnit(this);
+		}
+
+		public bool HasName(String name)
+		{
+			return scope.HasName(name);
+		}
+
+		public INamingScope Parent
+		{
+			get { return scope.Parent; }
+			set { scope.Parent = value; }
+		}
+
+		public void Register(String name)
+		{
+			scope.Register(name);
 		}
 	}
 }
