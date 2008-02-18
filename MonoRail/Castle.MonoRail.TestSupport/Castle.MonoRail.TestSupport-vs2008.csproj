@@ -119,6 +119,8 @@
     </Compile>
     <Compile Include="BaseControllerTest.cs" />
     <Compile Include="BaseViewComponentTest.cs" />
+    <Compile Include="GenericBaseControllerTest.cs" />
+    <Compile Include="GenericBaseWizardStepTest.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="WebServer.cs" />
   </ItemGroup>
