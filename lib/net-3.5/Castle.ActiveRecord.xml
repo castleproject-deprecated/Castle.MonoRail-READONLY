@@ -630,6 +630,13 @@
             in the mapping file.
             </remarks>
         </member>
+        <member name="P:Castle.ActiveRecord.BelongsToAttribute.Index">
+            <summary>
+            From NHibernate documentation:
+            specifies the name of a (multi-column) index
+            </summary>
+            <value>index name</value>
+        </member>
         <member name="P:Castle.ActiveRecord.BelongsToAttribute.ForeignKey">
             <summary>
             Gets and sets the name of the foreign key constraint 
@@ -2425,6 +2432,28 @@
             </code>
             </example>
         </member>
+        <member name="F:Castle.ActiveRecord.PropertyAccess.AutomaticProperty">
+            <summary>
+            Use the backing field of this property to get/set the value. (Only valid when specified on automatic property)
+            </summary>
+            <example>
+            <code>
+            [Property(Access=PropertyAccess.AutomaticProperty)]
+            public string UserName { get; set; } // notice this is automatic property
+            </code>
+            </example>
+        </member>
+        <member name="F:Castle.ActiveRecord.PropertyAccess.ReadOnly">
+            <summary>
+            Use the property get method to get the value of this property. Property will be only read, never written.
+            </summary>
+            <example>
+            <code>
+            [Property(Access=PropertyAccess.ReadOnly)]
+            public string SumOfAllOrders { get { orders.Sum( o => o.Value ); }
+            </code>
+            </example>
+        </member>
         <member name="F:Castle.ActiveRecord.PropertyAccess.FieldCamelcase">
             <summary>
             Use the field that is the backing store for this property to get/set the value of this property.
@@ -3004,11 +3033,20 @@
             Populate this instance with values from the given XML node
             </summary>
         </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.XmlConfigurationSource.BuildProperties(System.Xml.XmlNode)">
+        <member name="M:Castle.ActiveRecord.Framework.Config.XmlConfigurationSource.SetDefaults(System.String,System.String)">
+            <summary>
+            Sets the default configuration for database specifiend by <paramref name="name"/>.
+            </summary>
+            <param name="name">Name of the database type.</param>
+            <param name="connectionStringName">name of the connection string specified in connectionStrings configuration section</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.Framework.Config.XmlConfigurationSource.BuildProperties(System.Xml.XmlNode,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Builds the configuration properties.
             </summary>
             <param name="node">The node.</param>
+            <param name="defaults"></param>
             <returns></returns>
         </member>
         <member name="M:Castle.ActiveRecord.Framework.Config.ActiveRecordSectionHandler.Create(System.Object,System.Object,System.Xml.XmlNode)">
@@ -3033,106 +3071,93 @@
             </summary>
             <value>The instance.</value>
         </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.Configure">
+        <member name="T:Castle.ActiveRecord.Framework.Config.DatabaseType">
             <summary>
-            Enables the fluent configuration of ActiveRecord.
+            Enum for database types support for configuration construction. 
+            Not to be confused by databases supported by ActiveRecord
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.Configure.ActiveRecord">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MsSqlServer2000">
             <summary>
-            Builds a fluent configuration for general ActiveRecord settings.
+            Microsoft SQL Server 2000
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.Configure.Storage">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MsSqlServer2005">
             <summary>
-            Builds an ActiveRecord storage specifiaction fluently.
+            Microsoft SQL Server 2005
             </summary>
         </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MsSqlServer2008">
             <summary>
-             Default configuration class for <see cref="T:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration"/>.
+            Microsoft SQL Server 2008
             </summary>
         </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.SQLite">
             <summary>
-            New configuration interface for ActiveRecord basic functionality
-            </summary>
-            <remarks>
-            This interface is subject to further modification. If you need to implement
-            this interface, please inherit from <see cref="T:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration"/>.
-            </remarks>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.ThreadScopeInfoImplementation">
-            <summary>
-            The <see cref="T:Castle.ActiveRecord.Framework.IThreadScopeInfo"/> to use in ActiveRecord.
+            SQLite
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.SessionfactoryHolderImplementation">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MySql">
             <summary>
-            The <see cref="T:Castle.ActiveRecord.Framework.ISessionFactoryHolder"/> to use in ActiveRecord.
+            MySQL 3 or 4
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.DefaultFlushType">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MySql5">
             <summary>
-            Determines the default Flush-behaviour of <see cref="T:Castle.ActiveRecord.ISessionScope"/>.
+            MySQL 5
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.WebEnabled">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.Firebird">
             <summary>
-            Determines whether ActiveRecord is configured for use in web apps.
+            Firebird
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.Lazy">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.PostgreSQL">
             <summary>
-            Determines whether collections should be loaded lazily by default.
+            PostgreSQL
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.Verification">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.PostgreSQL81">
             <summary>
-            Determines whether the models should be verified against the chosem data stores
-            at initialization.
+            PostgreSQL 8.1
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IActiveRecordConfiguration.Searchable">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.PostgreSQL82">
             <summary>
-            Determines whether event listeners for NHibernate.Search should be registered.
+            PostgreSQL 8.2
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.ThreadScopeInfoImplementation">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MsSqlCe">
             <summary>
-            The <see cref="T:Castle.ActiveRecord.Framework.IThreadScopeInfo"/> to use in ActiveRecord.
+            Microsoft SQL Server 2005 Compact Edition
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.SessionfactoryHolderImplementation">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.Oracle8i">
             <summary>
-            The <see cref="T:Castle.ActiveRecord.Framework.ISessionFactoryHolder"/> to use in ActiveRecord.
+            Oracle 
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.DefaultFlushType">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.Oracle9i">
             <summary>
-            Determines the default Flush-behaviour of <see cref="T:Castle.ActiveRecord.ISessionScope"/>.
+            Oracle 9
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.WebEnabled">
+        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.Oracle10g">
             <summary>
-            Determines whether ActiveRecord is configured for use in web apps.
+            Oracle 10g
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.Lazy">
+        <member name="T:Castle.ActiveRecord.Framework.Config.DefaultDatabaseConfiguration">
             <summary>
-            Determines whether collections should be loaded lazily by default.
+            Exposes default configuration properties for common databases defined in <see cref="T:Castle.ActiveRecord.Framework.Config.DatabaseType"/> enum.
             </summary>
         </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.Verification">
+        <member name="M:Castle.ActiveRecord.Framework.Config.DefaultDatabaseConfiguration.For(Castle.ActiveRecord.Framework.Config.DatabaseType)">
             <summary>
-            Determines whether the models should be verified against the chosem data stores
-            at initialization.
+            Returns dictionary of common properties pre populated with default values for given <paramref name="databaseType"/>.
             </summary>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultActiveRecordConfiguration.Searchable">
-            <summary>
-            Determines whether event listeners for NHibernate.Search should be registered.
-            </summary>
+            <param name="databaseType">Database type for which we want default properties.</param>
+            <returns></returns>
         </member>
         <member name="T:Castle.ActiveRecord.Framework.DefaultFlushType">
             <summary>
@@ -3164,323 +3189,6 @@
             called manually. <see cref="T:Castle.ActiveRecord.TransactionScope"/> flushes automatically. This
             allows to use the scopes like the NH-ISession-ITransaction-block.
             </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration">
-            <summary>
-            Default implementation for <see cref="T:Castle.ActiveRecord.Framework.Config.IStorageConfiguration"/>.
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.IStorageConfiguration">
-            <summary>
-            Interface for configuration of a database storage.
-            </summary>
-            <remarks>
-            This interface is subject to further modification. If you need to implement
-            this interface, please inherit from <see cref="T:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration"/>.
-            </remarks>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IStorageConfiguration.TypeSelections">
-            <summary>
-            The type selections for that storage.
-            </summary>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.IStorageConfiguration.ConfigurationValues">
-            <summary>
-            Contains the name-value-pairs for the NHibernate configuration
-            </summary>
-        </member>
-        <member name="F:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration.TypeSelectionList">
-            <summary>
-            The type selections writable store.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration.GetTypeName``1">
-            <summary>
-            Creates a type name in the form Type.Fullname, Assembly.Simple.Name
-            </summary>
-            <typeparam name="T">The type for which to create the name</typeparam>
-            <returns>The created name</returns>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration.TypeSelections">
-            <summary>
-            The type selections for that storage.
-            </summary>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.DefaultStorageConfiguration.ConfigurationValues">
-            <summary>
-            Contains the name-value-pairs for the NHibernate configuration
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration">
-            <summary>
-            Allows to configure ActiveRecord fluently.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.ForWeb">
-            <summary>
-            Enables ActiveRecord to be used in a ASP.NET scenario by registering a proper
-            <see cref="T:Castle.ActiveRecord.Framework.IThreadScopeInfo"/>. By default, ActiveRecord cannot be used in
-            web applications.
-            </summary>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.Flush(Castle.ActiveRecord.Framework.DefaultFlushType)">
-            <summary>
-            Sets the flush behaviour for <see cref="T:Castle.ActiveRecord.ISessionScope"/> when no
-            other behaviour is specified in the scope itself. The default for
-            this configuration is <see cref="F:Castle.ActiveRecord.Framework.DefaultFlushType.Classic"/>. See
-            <see cref="T:Castle.ActiveRecord.Framework.DefaultFlushType"/> for what the options mean.
-            </summary>
-            <param name="flushType">The default flushing behaviour to set.</param>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.UseThreadScopeInfo``1">
-            <summary>
-            Sets the <see cref="T:Castle.ActiveRecord.Framework.IThreadScopeInfo"/> to use. Normally, this type is
-            set when ActiveRecord is used in web application. You should set this
-            value only if you need a custom implementation of that interface.
-            </summary>
-            <typeparam name="T">The implementation to use.</typeparam>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.UseSessionFactoryHolder``1">
-            <summary>
-            Sets the <see cref="T:Castle.ActiveRecord.Framework.ISessionFactoryHolder"/> to use. You should set this if you need to
-            use a custom implementation of that interface.
-            </summary>
-            <typeparam name="T">The implementation to use.</typeparam>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.MakeLazyByDefault">
-            <summary>
-            Instructs ActiveRecord to use lazy loading unless otherwise specified on the collection.
-            By default, lazy loading is not used.
-            </summary>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.VerifyModels">
-            <summary>
-            Instructs ActiveRecord to verify the models against the data stores on initialization.
-            By default, there is no verification
-            </summary>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentActiveRecordConfiguration.RegisterSearch">
-            <summary>
-            Instructs ActiveRecord to register NHibernate.Search event listeners to allow full text search.
-            By default, there is no registration of these listeners.
-            </summary>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.FluentNHibernateMapping">
-            <summary>
-            Extension of <see cref="T:Castle.ActiveRecord.Framework.Config.IMappingSpecification"/> to add FNH-mapped
-            NHibernate types.
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.IMappingSpecification">
-            <summary>
-            Extension points for adding types mapped by different ways to ActiveRecord.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentNHibernateMapping.InAssemblyOf``1">
-            <summary>
-            Searches for the ClassMap-types in the assembly of the specified type.
-            </summary>
-            <typeparam name="T">The type whose assembly will be searched.</typeparam>
-            <returns>The mapping object itself.</returns>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration">
-            <summary>
-            Fluent configuration of ActiveRecord storage options.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.DefaultsFor``1">
-             <summary>
-             Sets reasonable defaults for the specified type of database.
-             </summary>
-             <typeparam name="T"></typeparam>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ConnectionStringName(System.String)">
-            <summary>
-             Sets the connection string per name
-            </summary>
-            <param name="connecctionStringName">The name of the connection string</param>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.Driver``1">
-            <summary>
-             Sets the driver for the configuration
-            </summary>
-            <typeparam name="T">The driver class</typeparam>
-            <returns>The fluent configuration itself</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ConnectionProvider``1">
-            <summary>
-            Sets the connection provider
-            </summary>
-            <typeparam name="T">The connection provider class to use.</typeparam>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.Dialect``1">
-            <summary>
-            Sets the dialect.
-            </summary>
-            <typeparam name="T">The dialect type to use.</typeparam>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ProxiedBy``1">
-            <summary>
-            The proxy factory to use. This value defaults to 
-            <see cref="T:NHibernate.ByteCode.Castle.ProxyFactoryFactory"/>.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ConnectionString(System.String)">
-            <summary>
-            Sets the connection string
-            </summary>
-            <param name="connectionString">The connection string to use.</param>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ShowSql">
-            <summary>
-            Switches SQL console output on.
-            </summary>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.ShowSql(System.Boolean)">
-            <summary>
-            Switches SQL console output on or off.
-            </summary>
-            <param name="showSql">Whether to show the Sql or not.</param>
-            <returns>The fluent configuration itself.</returns>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration.For">
-            <summary>
-            Adds an inital <see cref="T:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection"/> that can be
-            used for specifying the types that use this storage configured.
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection">
-            <summary>
-             Fluent configuration of a storage type selection
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.StorageTypeSelection">
-            <summary>
-            Configuration of the types that will use a storage.
-            </summary>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.StorageTypeSelection.Default">
-            <summary>
-            Determines whether the selection contains all types are not
-            specified elsewhere. Only one storage configuration may have
-            a type selection with this property being true.
-            </summary>
-        </member>
-        <member name="F:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.StorageConfiguration">
-            <summary>
-            Internal storage of the configuration this selection belongs to.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.#ctor(Castle.ActiveRecord.Framework.Config.FluentStorageConfiguration)">
-            <summary>
-            Creates a new fluent selection configuration.
-            </summary>
-            <param name="storageConfiguration">The object that creates and uses the selection.</param>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.AllOtherTypes">
-            <summary>
-            Sets the selection to be used for all types are not explicitly selected.
-            This may be used only on one storage configuration.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.SubtypesOf``1">
-            <summary>
-            Selects the type and all subtypes of the type to use the storage.
-            </summary>
-            <typeparam name="T">The type to choose.</typeparam>
-            <returns>The fluent selection itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.InNamespaceOf``1">
-            <summary>
-            Selects all types in or below the namespace of the given type.
-            </summary>
-            <typeparam name="T">The type to select.</typeparam>
-            <returns>The fluent selection itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.MappedBy(Castle.ActiveRecord.Framework.Config.IMappingSpecification)">
-            <summary>
-            Sets the way the selected types are mapped. The default mapping is ActiveRecord
-            attributes.
-            </summary>
-            <param name="specification">The mapping specification</param>
-            <returns>The fluent selection itself.</returns>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.TypesInAssemblyOf``1">
-            <summary>
-            Selects all types in the assembly of the given type.
-            </summary>
-            <typeparam name="T">The type to select.</typeparam>
-            <returns>The fluent selection itself.</returns>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.As">
-            <summary>
-            The storage configuration that created the current selection.
-            </summary>
-        </member>
-        <member name="P:Castle.ActiveRecord.Framework.Config.FluentStorageTypeSelection.And">
-            <summary>
-            Adds another selection to the storage configuration.
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.IDatabaseConfiguration">
-            <summary>
-            Defines basic NHibernate settings for a certain RDBMS.
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.DatabaseType">
-            <summary>
-            Enum for database types support for configuration construction. 
-            Not to be confused by databases supported by ActiveRecord
-            </summary>
-        </member>
-        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MSSQLServer2005">
-            <summary>
-            Microsoft SQL Server 2005
-            </summary>
-        </member>
-        <member name="F:Castle.ActiveRecord.Framework.Config.DatabaseType.MSSQLServer2000">
-            <summary>
-            Microsoft SQL Server 2000
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.MsSqlServer2000Configuration">
-            <summary>
-            Defines the defaults for Sql Server 2000
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.MsSqlServer2005Configuration">
-            <summary>
-            Defines the defaults for Sql Server 2005
-            </summary>
-        </member>
-        <member name="T:Castle.ActiveRecord.Framework.Config.XmlNhibernateMapping">
-            <summary>
-            Extension of <see cref="T:Castle.ActiveRecord.Framework.Config.IMappingSpecification"/> to add classically XML-mapped
-            NHibernate types.
-            </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Framework.Config.XmlNhibernateMapping.InAssemblyOf``1">
-            <summary>
-            Searches for the XML files in the assembly of the specified type.
-            </summary>
-            <typeparam name="T">The type whose assembly will be searched.</typeparam>
-            <returns>The mapping object itself.</returns>
         </member>
         <member name="T:Castle.ActiveRecord.Framework.Internal.EventListener.EventListenerConfig">
             <summary>
@@ -8141,6 +7849,14 @@
             <param name="detachedCriteria">The criteria expression</param>		
             <returns><c>true</c> if an instance is found; otherwise <c>false</c>.</returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase.Exists(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Check if there is any records in the db for the target type
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="detachedQuery"></param>
+            <returns><c>true</c> if there's at least one row</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindAll(System.Type,NHibernate.Criterion.DetachedCriteria,NHibernate.Criterion.Order[])">
             <summary>
             Returns all instances found for the specified type according to the criteria
@@ -8174,6 +7890,14 @@
             </summary>
             <param name="targetType">The target type.</param>
             <param name="criteria">The criteria expression</param>
+            <returns>The <see cref="T:System.Array"/> of results.</returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindAll(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns all instances found for the specified type according to the criteria
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="detachedQuery">The query expression</param>
             <returns>The <see cref="T:System.Array"/> of results.</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindAllByProperty(System.Type,System.String,System.Object)">
@@ -8241,6 +7965,14 @@
             <param name="criteria">The criteria expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindFirst(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns the first row.
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="detachedQuery">The expression query.</param>
+            <returns>A <c>targetType</c> instance or <c>null.</c></returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindOne(System.Type,NHibernate.Criterion.ICriterion[])">
             <summary>
             Searches and returns a row. If more than one is found, 
@@ -8257,6 +7989,15 @@
             </summary>
             <param name="targetType">The target type</param>
             <param name="criteria">The criteria</param>
+            <returns>A <c>targetType</c> instance or <c>null</c></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase.FindOne(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns a row. If more than one is found,
+            throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
+            </summary>
+            <param name="targetType">The target type</param>
+            <param name="detachedQuery">The query expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase.SlicedFindAll(System.Type,System.Int32,System.Int32,NHibernate.Criterion.Order[],NHibernate.Criterion.ICriterion[])">
@@ -8299,6 +8040,16 @@
             <param name="firstResult">The number of the first row to retrieve.</param>
             <param name="maxResults">The maximum number of results retrieved.</param>
             <param name="criteria">The criteria expression</param>
+            <returns>The sliced query results.</returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase.SlicedFindAll(System.Type,System.Int32,System.Int32,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns a portion of the query results (sliced)
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="firstResult">The number of the first row to retrieve.</param>
+            <param name="maxResults">The maximum number of results retrieved.</param>
+            <param name="detachedQuery">The query expression</param>
             <returns>The sliced query results.</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase.Execute(Castle.ActiveRecord.NHibernateDelegate)">
@@ -8643,6 +8394,13 @@
             <param name="detachedCriteria">The criteria expression</param>		
             <returns><c>true</c> if an instance is found; otherwise <c>false</c>.</returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.Exists(NHibernate.IDetachedQuery)">
+            <summary>
+            Check if any instance matching the query exists in the database.
+            </summary>
+            <param name="detachedQuery">The query expression</param>
+            <returns>true if an instance is found; otherwise false.</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindAll(NHibernate.Criterion.DetachedCriteria,NHibernate.Criterion.Order[])">
             <summary>
             Returns all the instances that match the detached criteria.
@@ -8682,6 +8440,13 @@
             </summary>
             <param name="criteria"></param>
             <returns>An <see cref="T:System.Array"/> of <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindAll(NHibernate.IDetachedQuery)">
+            <summary>
+            Returns all instances found for the specified type according to the criteria
+            </summary>
+            <param name="detachedQuery">The query expression.</param>
+            <returns>All entities that match the query</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindAllByProperty(System.String,System.Object)">
             <summary>
@@ -8765,6 +8530,13 @@
             <param name="criteria">The criteria expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindFirst(NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns the first row. 
+            </summary>
+            <param name="detachedQuery">The query expression</param>
+            <returns>A <c>targetType</c> instance or <c>null.</c></returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindOne(NHibernate.Criterion.ICriterion[])">
             <summary>
             Searches and returns a row. If more than one is found, 
@@ -8779,6 +8551,14 @@
             throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
             </summary>
             <param name="criteria">The criteria</param>
+            <returns>A <c>targetType</c> instance or <c>null</c></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.FindOne(NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns a row. If more than one is found, 
+            throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
+            <param name="detachedQuery">The query expression</param>
+            </summary>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.SlicedFindAll(System.Int32,System.Int32,NHibernate.Criterion.Order[],NHibernate.Criterion.ICriterion[])">
@@ -8809,6 +8589,15 @@
             <param name="orders">An <see cref="T:System.Array"/> of <see cref="T:NHibernate.Criterion.Order"/> objects.</param>
             <param name="criteria">The criteria expression</param>
             <returns>The sliced query results.</returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordBase`1.SlicedFindAll(System.Int32,System.Int32,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns a portion of the query results (sliced)
+            </summary>
+            <param name="firstResult">The number of the first row to retrieve.</param>
+            <param name="maxResults">The maximum number of results retrieved.</param>
+            <returns>The sliced query results.</returns>
+            <param name="detachedQuery">The query expression</param>
         </member>
         <member name="T:Castle.ActiveRecord.Framework.ActiveRecordException">
             <summary>
@@ -9009,14 +8798,14 @@
         </member>
         <member name="T:Castle.ActiveRecord.ActiveRecordMediator">
             <summary>
-            Allow programmers to use the 
+            Allow programmers to use the
             ActiveRecord functionality without direct reference
             to <see cref="T:Castle.ActiveRecord.ActiveRecordBase"/>
             </summary>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Execute(System.Type,Castle.ActiveRecord.NHibernateDelegate,System.Object)">
             <summary>
-            Invokes the specified delegate passing a valid 
+            Invokes the specified delegate passing a valid
             NHibernate session. Used for custom NHibernate queries.
             </summary>
             <param name="targetType">The target ActiveRecordType</param>
@@ -9032,7 +8821,7 @@
             <param name="id">ID value</param>
             <param name="throwOnNotFound"><c>true</c> if you want an exception to be thrown
             if the object is not found</param>
-            <exception cref="T:NHibernate.ObjectNotFoundException">if <c>throwOnNotFound</c> is set to 
+            <exception cref="T:NHibernate.ObjectNotFoundException">if <c>throwOnNotFound</c> is set to
             <c>true</c> and the row is not found</exception>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindByPrimaryKey(System.Type,System.Object)">
@@ -9076,9 +8865,17 @@
             <param name="criteria">The criteria expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindFirst(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns the first row.
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="detachedQuery">The expression query.</param>
+            <returns>A <c>targetType</c> instance or <c>null.</c></returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindOne(System.Type,NHibernate.Criterion.ICriterion[])">
             <summary>
-            Searches and returns the a row. If more than one is found, 
+            Searches and returns the a row. If more than one is found,
             throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
             </summary>
             <param name="targetType">The target type</param>
@@ -9087,11 +8884,20 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindOne(System.Type,NHibernate.Criterion.DetachedCriteria)">
             <summary>
-            Searches and returns a row. If more than one is found, 
+            Searches and returns a row. If more than one is found,
             throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
             </summary>
             <param name="targetType">The target type</param>
             <param name="criteria">The criteria</param>
+            <returns>A <c>targetType</c> instance or <c>null</c></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindOne(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns a row. If more than one is found,
+            throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
+            </summary>
+            <param name="targetType">The target type</param>
+            <param name="detachedQuery">The query expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.SlicedFindAll(System.Type,System.Int32,System.Int32,NHibernate.Criterion.Order[],NHibernate.Criterion.ICriterion[])">
@@ -9114,6 +8920,16 @@
             Returns a portion of the query results (sliced)
             </summary>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator.SlicedFindAll(System.Type,System.Int32,System.Int32,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns a portion of the query results (sliced)
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="firstResult">The number of the first row to retrieve.</param>
+            <param name="maxResults">The maximum number of results retrieved.</param>
+            <param name="detachedQuery">The query expression</param>
+            <returns>The sliced query results.</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAll(System.Type)">
             <summary>
             Returns all instances found for the specified type.
@@ -9123,7 +8939,7 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAll(System.Type,NHibernate.Criterion.Order[],NHibernate.Criterion.ICriterion[])">
             <summary>
-            Returns all instances found for the specified type 
+            Returns all instances found for the specified type
             using sort orders and criterias.
             </summary>
             <param name="targetType"></param>
@@ -9133,7 +8949,7 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAll(System.Type,NHibernate.Criterion.ICriterion[])">
             <summary>
-            Returns all instances found for the specified type 
+            Returns all instances found for the specified type
             using criterias.
             </summary>
             <param name="targetType"></param>
@@ -9145,9 +8961,17 @@
             Returns all instances found for the specified type according to the criteria
             </summary>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAll(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns all instances found for the specified type according to the criteria
+            </summary>
+            <param name="targetType">The target type.</param>
+            <param name="detachedQuery">The query expression</param>
+            <returns>The <see cref="T:System.Array"/> of results.</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAllByProperty(System.Type,System.String,System.Object)">
             <summary>
-            Finds records based on a property value - automatically converts null values to IS NULL style queries. 
+            Finds records based on a property value - automatically converts null values to IS NULL style queries.
             </summary>
             <param name="targetType">The target type</param>
             <param name="property">A property name (not a column name)</param>
@@ -9156,7 +8980,7 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.FindAllByProperty(System.Type,System.String,System.String,System.Object)">
             <summary>
-            Finds records based on a property value - automatically converts null values to IS NULL style queries. 
+            Finds records based on a property value - automatically converts null values to IS NULL style queries.
             </summary>
             <param name="targetType">The target type</param>
             <param name="orderByColumn">The column name to be ordered ASC</param>
@@ -9202,54 +9026,54 @@
             <returns></returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Count(System.Type)">
-            <summary>
-            Returns the number of records of the specified 
-            type in the database
-            </summary>
-            <example>
-            <code>
-            [ActiveRecord]
-            public class User : ActiveRecordBase
-            {
-              ...
-              
-              public static int CountUsers()
-              {
-                return Count(typeof(User));
-              }
-            }
-            </code>
-            </example>
-            <param name="targetType">Type of the target.</param>
-            <returns>The count result</returns>
+             <summary>
+             Returns the number of records of the specified
+             type in the database
+             </summary>
+             <example>
+             <code>
+             [ActiveRecord]
+             public class User : ActiveRecordBase
+             {
+               ...
+            
+               public static int CountUsers()
+               {
+                 return Count(typeof(User));
+               }
+             }
+             </code>
+             </example>
+             <param name="targetType">Type of the target.</param>
+             <returns>The count result</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Count(System.Type,System.String,System.Object[])">
-            <summary>
-            Returns the number of records of the specified 
-            type in the database
-            </summary>
-            <example>
-            <code>
-            [ActiveRecord]
-            public class User : ActiveRecordBase
-            {
-              ...
-              
-              public static int CountUsersLocked()
-              {
-                return Count(typeof(User), "IsLocked = ?", true);
-              }
-            }
-            </code>
-            </example>
-            <param name="targetType">Type of the target.</param>
-            <param name="filter">A sql where string i.e. Person=? and DOB &gt; ?</param>
-            <param name="args">Positional parameters for the filter string</param>
-            <returns>The count result</returns>
+             <summary>
+             Returns the number of records of the specified
+             type in the database
+             </summary>
+             <example>
+             <code>
+             [ActiveRecord]
+             public class User : ActiveRecordBase
+             {
+               ...
+            
+               public static int CountUsersLocked()
+               {
+                 return Count(typeof(User), "IsLocked = ?", true);
+               }
+             }
+             </code>
+             </example>
+             <param name="targetType">Type of the target.</param>
+             <param name="filter">A sql where string i.e. Person=? and DOB &gt; ?</param>
+             <param name="args">Positional parameters for the filter string</param>
+             <returns>The count result</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Count(System.Type,NHibernate.Criterion.ICriterion[])">
             <summary>
-            Returns the number of records of the specified 
+            Returns the number of records of the specified
             type in the database
             </summary>
             <param name="targetType">The target type.</param>
@@ -9258,7 +9082,7 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Count(System.Type,NHibernate.Criterion.DetachedCriteria)">
             <summary>
-            Returns the number of records of the specified 
+            Returns the number of records of the specified
             type in the database
             </summary>
             <param name="targetType">The target type.</param>
@@ -9300,7 +9124,15 @@
             Check if any instance matching the criteria exists in the database.
             </summary>
             <param name="targetType">The target type.</param>
-            <param name="detachedCriteria">The criteria expression</param>		
+            <param name="detachedCriteria">The criteria expression</param>
+            <returns><c>true</c> if an instance is found; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Exists(System.Type,NHibernate.IDetachedQuery)">
+            <summary>
+            Check if any instance matches the query.
+            </summary>
+            <param name="targetType">target Type</param>
+            <param name="detachedQuery">The query expression</param>
             <returns><c>true</c> if an instance is found; otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Save(System.Object)">
@@ -9390,8 +9222,8 @@
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator.Replicate(System.Object,NHibernate.ReplicationMode)">
             <summary>
-            From NHibernate documentation: 
-            Persist all reachable transient objects, reusing the current identifier 
+            From NHibernate documentation:
+            Persist all reachable transient objects, reusing the current identifier
             values. Note that this will not trigger the Interceptor of the Session.
             </summary>
             <param name="instance">The instance.</param>
@@ -9507,6 +9339,13 @@
             <param name="criteria">The criteria expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.FindFirst(NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns the first row.
+            </summary>
+            <param name="detachedQuery">The expression query.</param>
+            <returns>A <c>targetType</c> instance or <c>null.</c></returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.FindOne(NHibernate.Criterion.ICriterion[])">
             <summary>
             Searches and returns the first row.
@@ -9520,6 +9359,14 @@
             throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
             </summary>
             <param name="criteria">The criteria</param>
+            <returns>A <c>targetType</c> instance or <c>null</c></returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.FindOne(NHibernate.IDetachedQuery)">
+            <summary>
+            Searches and returns a row. If more than one is found,
+            throws <see cref="T:Castle.ActiveRecord.Framework.ActiveRecordException"/>
+            </summary>
+            <param name="detachedQuery">The query expression</param>
             <returns>A <c>targetType</c> instance or <c>null</c></returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.FindAllByProperty(System.String,System.Object)">
@@ -9567,6 +9414,13 @@
             Returns all instances found for the specified type according to the criteria
             </summary>
         </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.FindAll(NHibernate.IDetachedQuery)">
+            <summary>
+            Returns all instances found for the specified type according to the criteria
+            </summary>
+            <param name="detachedQuery">The query expression</param>
+            <returns>The <see cref="T:System.Array"/> of results.</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.SlicedFindAll(System.Int32,System.Int32,NHibernate.Criterion.Order[],NHibernate.Criterion.ICriterion[])">
             <summary>
             Returns a portion of the query results (sliced)
@@ -9581,6 +9435,15 @@
             <summary>
             Returns a portion of the query results (sliced)
             </summary>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.SlicedFindAll(System.Int32,System.Int32,NHibernate.IDetachedQuery)">
+            <summary>
+            Returns a portion of the query results (sliced)
+            </summary>
+            <param name="firstResult">The number of the first row to retrieve.</param>
+            <param name="maxResults">The maximum number of results retrieved.</param>
+            <param name="detachedQuery">The query expression</param>
+            <returns>The sliced query results.</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.DeleteAll">
             <summary>
@@ -9644,6 +9507,13 @@
             <typeparam name="PkType">The <c>System.Type</c> of the PrimaryKey</typeparam>
             <param name="id">The id to check on</param>
             <returns><c>true</c> if the ID exists; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.Exists(NHibernate.IDetachedQuery)">
+            <summary>
+            Check if any instance matches the query.
+            </summary>
+            <param name="detachedQuery">The query expression</param>
+            <returns><c>true</c> if an instance is found; otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Castle.ActiveRecord.ActiveRecordMediator`1.Count">
             <summary>
