@@ -420,9 +420,7 @@ limitations under the License.
 		<Copy
 			SourceFiles="@(CopyToPackageDirectory)"
 			DestinationFolder="%(CopyToPackageDirectory.DestinationFolder)"
-			Condition="Exists('%(FullPath)')"
 			/>
-
 	</Target>
 
 
