@@ -1,0 +1,14 @@
+
+/build
+AssemblyInfo.cs
+src/Castle.MonoRail.Framework/JSResources/*.resources
+
+# Standard VS.NET and ReSharper Foo
+src/*/obj
+src/*/bin
+*.csproj.user
+_ReSharper*
+*ReSharper.*
+*.suo
+*.cache
+* Thumbs.db
