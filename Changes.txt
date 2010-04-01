@@ -1,5 +1,6 @@
 Unreleased
 ==========
+- Major code cleanup + reformatting
 
 2.0
 ==========
