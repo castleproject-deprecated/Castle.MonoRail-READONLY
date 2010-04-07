@@ -8,6 +8,8 @@ src/*/bin
 *.csproj.user
 _ReSharper*
 *ReSharper.*
+*.resharper.user
+*.resharper
 *.suo
 *.cache
 * Thumbs.db
