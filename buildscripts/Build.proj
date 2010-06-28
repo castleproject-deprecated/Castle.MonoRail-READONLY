@@ -40,12 +40,6 @@ limitations under the License.
 	</Target>
 		
 
-	<UsingTask
-		TaskName="NCover.MSBuildTasks.NCover"
-		AssemblyFile="$(NCoverPath)/Build Task Plugins/NCover.MSBuildTasks.dll"
-		Condition="$(TestRunner_EnableCoverage)" />
-
-	
 	<!--
 		Public targets
 	-->
@@ -182,88 +176,48 @@ limitations under the License.
 		<TestAssemblies></TestAssemblies>
 	</PropertyGroup>
 
-	<!-- Executes NUnit or NCover with NUnit -->
+	<!-- Executes NUnit -->
 	<Target
 		Name="_ExecTestRunner"
-		DependsOnTargets="_CreateTestResultsFolder"
 		Condition="$(TestRunner_Enabled)"
 		>
-		
-		<CallTarget Targets="_ExecNUnit" Condition="!$(TestRunner_EnableCoverage) and ($(BuildConfigKey) != 'SL3' and $(BuildConfigKey) != 'SL4')" />
-	
-		<CallTarget Targets="_ExecNCover" Condition="$(TestRunner_EnableCoverage) and ($(BuildConfigKey) != 'SL3' and $(BuildConfigKey) != 'SL4')" />
 
-		<CallTarget Targets="_ExecStatLight" Condition="$(TestRunner_Enabled) and ($(BuildConfigKey) == 'SL3' or $(BuildConfigKey) == 'SL4')" />
+		<CallTarget Targets="_ExecNUnit" Condition=" '$(TEAMCITY_VERSION)' == '' "/>
+
+		<CallTarget Targets="_ExecNUnitTC" Condition=" '$(TEAMCITY_VERSION)' != '' "/>
+
 
 	</Target>
-	
 
-	<!-- Use TeamCity's when running on the build server -->
-	<UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" Condition=" '$(TEAMCITY_VERSION)' != '' "/>
 
 	<Target
 		Name="_ExecNUnit"
+		DependsOnTargets="_CreateTestResultsFolder"
 		>
+
 		<PropertyGroup>
 			<NUnitTestResultXmlFiles Condition="'$(NUnitTestResultXmlFiles)' == ''">$(TestResultsPath)/nunit-results.xml</NUnitTestResultXmlFiles>
+			<NUnit_Args>/nologo @(TestAssemblies, ' ') /xml=$(NUnitTestResultXmlFiles)</NUnit_Args>
+			<NUnit_Args Condition="$(TargetFrameworkVersion) == 'v4.0'">$(NUnit_Args) /framework=v4.0</NUnit_Args>
 		</PropertyGroup>
 
-		<NUnit 
-			ToolPath="$(NUnitPath)"
-			Assemblies="@(TestAssemblies)"
-			Platform="x86"
-			OutputXmlFile="$(NUnitTestResultXmlFiles)"
-			ContinueOnError="$(TestRunner_ContinueOnError)"
-			>
-			
-			<Output TaskParameter="ExitCode" PropertyName="NUnitExitCode" />
-		
-		</NUnit>
-		
-		<Error Condition="$(NUnitExitCode) != '0'" Text="NUnit failed $(NUnitExitCode) tests." />
+		<Exec Command="$(NUnitPath)\nunit-console-x86.exe $(NUnit_Args)" />
 
 	</Target>
 
-	
-	<Target
-		Name="_ExecNCover"
-		>
-		
-		<PropertyGroup>
-			<NCoverResultXmlFiles Condition="'$(NCoverResultXmlFiles)' == ''">$(TestResultsPath)/nunit-coverage-results.xml</NCoverResultXmlFiles>
-		</PropertyGroup>
-
-		<NCover
-			ToolPath="$(NCoverPath)"
-			TestRunnerExe="$(NUnitPath)/nunit-console-x86.exe"
-			TestRunnerArgs="@(TestAssemblies) /noshadow"
-			CoverageFile="$(NCoverResultXmlFiles)"
-			ContinueOnError="$(TestRunner_ContinueOnError)"
-			Timeout="$(TestRunner_Timeout)"
-			>
-			
-			<Output TaskParameter="ExitCode" PropertyName="NCoverExitCode" />
-		
-		</NCover>
-		
-		<Error Condition="$(NCoverExitCode) != '0'" Text="NCover failed with exit code $(NCoverExitCode)." />
-	
-	</Target>
-
+	<!-- Use TeamCity's task when running on the build server -->
+	<UsingTask TaskName="NUnitTeamCity" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" Condition=" '$(TEAMCITY_VERSION)' != '' "/>
 
 	<Target
-		Name="_ExecStatLight"
+		Name="_ExecTestsTC"
 		>
-		
-		<PropertyGroup>
-			<StatLightCmdLine>$(ToolsPath)\StatLight\StatLight.exe -x="$(OutputPath)Castle.Core.Tests.xap" -o=NUnit</StatLightCmdLine>
-			<StatLightCmdLine Condition=" '$(TEAMCITY_VERSION)' != '' ">$(StatLightCmdLine) --teamcity</StatLightCmdLine>
-		</PropertyGroup>
-		
-		<Exec Command="$(StatLightCmdLine)" />
+
+		<NUnitTeamCity
+			Assemblies="@(TestBinaries)"
+			NUnitVersion="NUnit-2.5.4"
+		/>
 
 	</Target>
-
 
 	<Target
 		Name="_CreateTestResultsFolder"
