@@ -218,7 +218,7 @@ limitations under the License.
 		</PropertyGroup>
 
 		<NUnitTeamCity
-			Plaform="x86"
+			Platform="x86"
 			RuntimeVersion="$(RuntimeVersion)"
 			Assemblies="@(TestAssemblies)"
 			NUnitVersion="NUnit-2.5.4"
