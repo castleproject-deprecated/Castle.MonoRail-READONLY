@@ -213,7 +213,7 @@ limitations under the License.
 		>
 
 		<NUnitTeamCity
-			Assemblies="@(TestBinaries)"
+			Assemblies="@(TestAssemblies)"
 			NUnitVersion="NUnit-2.5.4"
 		/>
 
