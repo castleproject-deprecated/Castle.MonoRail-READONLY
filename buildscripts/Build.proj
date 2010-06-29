@@ -212,7 +212,14 @@ limitations under the License.
 		Name="_ExecNUnitTC"
 		>
 
+		<PropertyGroup>
+			<RuntimeVersion Condition="$(TargetFrameworkVersion) != 'v4.0'">v2.0</RuntimeVersion>
+			<RuntimeVersion Condition="$(TargetFrameworkVersion) == 'v4.0'">v4.0</RuntimeVersion>
+		</PropertyGroup>
+
 		<NUnitTeamCity
+			Plaform="x86"
+			RuntimeVersion="$(RuntimeVersion)"
 			Assemblies="@(TestAssemblies)"
 			NUnitVersion="NUnit-2.5.4"
 		/>
