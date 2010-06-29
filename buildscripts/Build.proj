@@ -209,7 +209,7 @@ limitations under the License.
 	<UsingTask TaskName="NUnitTeamCity" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" Condition=" '$(TEAMCITY_VERSION)' != '' "/>
 
 	<Target
-		Name="_ExecTestsTC"
+		Name="_ExecNUnitTC"
 		>
 
 		<NUnitTeamCity
