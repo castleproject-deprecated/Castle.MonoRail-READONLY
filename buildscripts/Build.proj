@@ -251,6 +251,8 @@ limitations under the License.
 
 			<_BuildScriptsTxtFiles Include="$(BuildScriptsPath)/*.txt"/>
 			<_ChangesTxt Include="$(RootPath)/src/Change*.txt"/>
+			
+			<PackageFiles Include="$(PackageFiles)" />
 		</ItemGroup>
 
 		<!-- Create list with items to be copied to package directory. The metadata <DestinationFolder> controls where they wind up. -->
