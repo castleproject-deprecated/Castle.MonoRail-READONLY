@@ -1,6 +1,0 @@
-<Configuration>
-  <CodeStyleSettings>
-    <ExternalPath>C:\Projects\Castle\MonoRail\trunk\buildscripts\ReSharper5.CodingStyle.xml</ExternalPath>
-    <Sharing>EXTERNAL</Sharing>
-  </CodeStyleSettings>
-</Configuration>
