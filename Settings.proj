@@ -35,7 +35,7 @@ limitations under the License.
 		
 		<!-- Versioning -->
 		<Project_Major>2</Project_Major>
-		<Project_Minor>0</Project_Minor>
+		<Project_Minor>1</Project_Minor>
 		<Project_Build>0</Project_Build>
 
 		<!-- Project folders -->
@@ -43,6 +43,11 @@ limitations under the License.
 
 	</PropertyGroup>
 	
+	<PropertyGroup>
+		<BuildConfigKey Condition="$(BuildConfigKey)==''">NET35</BuildConfigKey>
+		<Configuration Condition="$(Configuration)==''">Debug</Configuration>
+		<TargetFrameworkProfile></TargetFrameworkProfile>
+	</PropertyGroup>
 
 	<Target Name="_InitializeDynamicProperties">
 		<PropertyGroup>
