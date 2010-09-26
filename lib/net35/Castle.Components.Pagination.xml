@@ -6,27 +6,24 @@
     <members>
         <member name="T:Castle.Components.Pagination.AbstractPage">
             <summary>
-            Abstract implementation of <see cref="T:Castle.Components.Pagination.IPaginatedPage"/>
-            which performs the standard calculations on 
-            <see cref="M:Castle.Components.Pagination.AbstractPage.CalculatePaginationInfo(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)"/>
+            Abstract implementation of <see cref="T:Castle.Components.Pagination.IPaginatedPage"/> which performs the standard calculations
+            on <see cref="M:Castle.Components.Pagination.AbstractPage.CalculatePaginationInfo(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)"/>.
             </summary>
         </member>
         <member name="T:Castle.Components.Pagination.IPaginatedPage">
             <summary>
-            Represents a page of a bigger set
+            Represents a page of a bigger set.
             </summary>
             <remarks>
-            all indexes are one based
+            All indexes are one based.
             </remarks>
         </member>
         <member name="M:Castle.Components.Pagination.IPaginatedPage.HasPage(System.Int32)">
             <summary>
             Checks whether the specified page exists.
             Useful for Google-like pagination.
-            
             </summary>
             <returns>true if pageNumber is >= FirstPageIndex</returns>
-            <returns></returns>
         </member>
         <member name="P:Castle.Components.Pagination.IPaginatedPage.CurrentPageIndex">
             <summary>
@@ -95,8 +92,7 @@
         </member>
         <member name="M:Castle.Components.Pagination.AbstractPage.CalculatePaginationInfo(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Calculate the values of all properties
-            based on the specified parameters
+            Calculate the values of all properties based on the specified parameters.
             </summary>
             <param name="startIndex">Start index</param>
             <param name="endIndex">Last index</param>
@@ -106,10 +102,9 @@
         </member>
         <member name="M:Castle.Components.Pagination.AbstractPage.System#Collections#IEnumerable#GetEnumerator">
             <summary>
-            Returns a enumerator for the contents
-            of this page only (not the whole set)
+            Returns a enumerator for the contents of this page only (not the whole set).
             </summary>
-            <returns>Enumerator instance</returns>
+            <returns>Enumerator instance.</returns>
         </member>
         <member name="M:Castle.Components.Pagination.AbstractPage.GetItemAtIndex(System.Int32)">
             <summary>
@@ -125,7 +120,7 @@
         </member>
         <member name="T:Castle.Components.Pagination.AbstractPage`1">
             <summary>
-            Generic specialization of <see cref="T:Castle.Components.Pagination.AbstractPage"/>
+            Generic specialization of <see cref="T:Castle.Components.Pagination.AbstractPage"/>.
             </summary>
             <typeparam name="T"></typeparam>
         </member>
@@ -159,8 +154,7 @@
         </member>
         <member name="T:Castle.Components.Pagination.GenericCustomPage`1">
             <summary>
-            Represents the sliced data and offers
-            a few read only properties to create a pagination bar.
+            Represents the sliced data and offers a few read only properties to create a pagination bar.
             </summary>
         </member>
         <member name="M:Castle.Components.Pagination.GenericCustomPage`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32,System.Int32,System.Int32)">
@@ -168,14 +162,13 @@
             Initializes a new instance of the <see cref="T:Castle.Components.Pagination.GenericCustomPage`1"/> class.
             </summary>
             <param name="list">The list.</param>
-            <param name="curPage">The cur page.</param>
+            <param name="curPage">The current page.</param>
             <param name="pageSize">Size of the page.</param>
             <param name="total">The total.</param>
         </member>
         <member name="M:Castle.Components.Pagination.GenericCustomPage`1.GetGenericEnumeratorImplementation">
             <summary>
-            Returns a enumerator for the contents
-            of this page only (not the whole set)
+            Returns a enumerator for the contents of this page only (not the whole set).
             </summary>
             <returns>Enumerator instance</returns>
         </member>
@@ -184,13 +177,12 @@
             Returns an enumerator that iterates through the collection.
             </summary>
             <returns>
-            <see cref="T:System.Collections.Generic.IEnumerator`1"></see> that can be used to iterate through the collection.
+            <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
             </returns>
         </member>
         <member name="T:Castle.Components.Pagination.GenericPage`1">
             <summary>
-            Represents the sliced data and offers
-            a few read only properties to create a pagination bar.
+            Represents the sliced data and offers a few read-only properties to create a pagination bar.
             </summary>
         </member>
         <member name="M:Castle.Components.Pagination.GenericPage`1.#ctor(System.Collections.Generic.ICollection{`0},System.Int32,System.Int32)">
@@ -198,20 +190,19 @@
             Initializes a new instance of the <see cref="T:Castle.Components.Pagination.GenericPage`1"/> class.
             </summary>
             <param name="list">The list.</param>
-            <param name="curPage">The cur page.</param>
+            <param name="curPage">The current page.</param>
             <param name="pageSize">Size of the page.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="pageSize"/> is less than 1.</exception>
         </member>
         <member name="M:Castle.Components.Pagination.GenericPage`1.GetGenericEnumeratorImplementation">
             <summary>
-            Returns a enumerator for the contents
-            of this page only (not the whole set)
+            Returns a enumerator for the contents of this page only (not the whole set).
             </summary>
             <returns>Enumerator instance</returns>
         </member>
         <member name="T:Castle.Components.Pagination.Page">
             <summary>
-            Represents the sliced data and offers
-            a few read only properties to create a pagination bar.
+            Represents the sliced data and offers a few read-only properties to create a pagination bar.
             </summary>
         </member>
         <member name="M:Castle.Components.Pagination.Page.#ctor(System.Int32,System.Int32,System.Int32)">
@@ -221,6 +212,7 @@
             <param name="currentPageIndex">The desired page index</param>
             <param name="pageSize">The desired page size</param>
             <param name="total">The total of items in the data source.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="pageSize"/> is less than 1.</exception>
         </member>
         <member name="M:Castle.Components.Pagination.Page.#ctor(System.Collections.IList,System.Int32,System.Int32)">
             <summary>
@@ -249,8 +241,7 @@
         </member>
         <member name="M:Castle.Components.Pagination.Page.GetEnumeratorImplementation">
             <summary>
-            Creates an enumerator for the 
-            sliced set
+            Creates an enumerator for the sliced set.
             </summary>
             <returns>An enumerator instance</returns>
         </member>
@@ -261,7 +252,7 @@
         </member>
         <member name="M:Castle.Components.Pagination.PaginationSupport.GetItemAtIndex(System.Collections.IEnumerable,System.Int32)">
             <summary>
-            Subsititute for System.Linq.Enumerable.ElementAt
+            Subsititute for <see cref="M:System.Linq.Enumerable.ElementAt``1(System.Collections.Generic.IEnumerable{``0},System.Int32)"/>.
             </summary>
             <param name="enumerable"></param>
             <param name="itemIndex"></param>
@@ -269,7 +260,7 @@
         </member>
         <member name="M:Castle.Components.Pagination.PaginationSupport.GetItemAtIndex``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>
-            Subsititute for System.Linq.Enumerable.ElementAt
+            Subsititute for Subsititute for <see cref="M:System.Linq.Enumerable.ElementAt``1(System.Collections.Generic.IEnumerable{``0},System.Int32)"/>.
             </summary>
             <param name="enumerable"></param>
             <param name="itemIndex"></param>
