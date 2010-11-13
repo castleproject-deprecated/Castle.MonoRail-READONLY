@@ -28,11 +28,8 @@ IF "%1" == "NET40CP" (SET BuildConfigKey=NET40CP)
 IF "%1" == "NET35" (SET FrameworkVersion=v3.5)
 IF "%1" == "NET35" (SET BuildConfigKey=NET35)
 
-IF "%1" == "SL3" (SET FrameworkVersion=v3.0)
-IF "%1" == "SL3" (SET BuildConfigKey=SL3)
-
-IF "%1" == "SL4" (SET FrameworkVersion=v4.0)
-IF "%1" == "SL4" (SET BuildConfigKey=SL4)
+IF "%1" == "MONO26" (SET FrameworkVersion=v3.5)
+IF "%1" == "MONO26" (SET BuildConfigKey=MONO26)
 
 REM Set the build target, if not specified set it to "Package" target.
 IF "%2" == "" (SET BuildTarget=RunAllTests) ELSE (SET BuildTarget=%2)
@@ -48,9 +45,10 @@ echo Building configuration: %BuildConfiguration%
 REM Always uses the MSBuild 4.0
 SET __MSBUILD_EXE__=%windir%\microsoft.net\framework\v4.0.30319\msbuild.exe
 
+IF "%BuildTarget%" == "ClickToBuild" (SET Verbosity=minimal) ElSE (SET Verbosity=normal)
 REM Call the MSBuild to build the project
 @echo on
-%__MSBUILD_EXE__% /m "%~dp0Build.proj" /property:BuildConfigKey=%BuildConfigKey% /p:TargetFrameworkVersion=%FrameworkVersion% /ToolsVersion:4.0  /property:Configuration=%BuildConfiguration% /t:%BuildTarget%
+%__MSBUILD_EXE__% /v:%Verbosity% /m "%~dp0Build.proj" /property:BuildConfigKey=%BuildConfigKey% /p:TargetFrameworkVersion=%FrameworkVersion% /ToolsVersion:4.0  /property:Configuration=%BuildConfiguration% /t:%BuildTarget%
 @echo off
 
 IF %ERRORLEVEL% NEQ 0 GOTO err
