@@ -1,6 +1,34 @@
-Unreleased
+2.1 Beta
 ==========
 - Major code cleanup + reformatting
+- Updated to Core and Windsor 2.5.2
+- Updated to AR 3 Beta and NHibernate 3 
+- Updated to Binder 2.5, Template Engine 1.1.2 and Validator 2.5
+
+- Merged Castle.MonoRail.TestSupport.dll into Castle.MonoRail.Framework.dll
+- IInitializable usage dropped and replaced by the IServiceEnabledComponent. (Most related to viewengines implementations)
+
+- Fixed: AsyncAction does not take care of transform filters (MR-564)
+- Fixed: DefaultCacheProvider throws NullReferenceExceptio (MR-565)
+- Fixed: JQueryHelper cannot be used without its default ctor  (MR-559)
+- Fixed: Delete operations (Scaffolding) do not work if used with NHibernate SessionScope with FlushAction.Never (MR-463)
+- Fixed: FormHelper's disablevalidation parameter only works when in Push command and on field (MR-346)
+- Fixed: Security ViewComponent allow content on success but not failure. (MR-558)
+- Fixed: Async action & LocalizationFilter (MR-507)
+- Fixed: Can't parse ?var1, ${var1}, !{var1}, ${?var1} in .brailjs  (MR-504)
+- Fixed: AspView and the IDictionaryAdapterFactory (MR-522)
+- Fixed: Custom scaffolded views are broken (MR-537)
+
+Added Convenience functions for configuration (ViewEngineConfig and SmtpConfig). (MR-467)
+
+Added support for inferred actions, If you have controller actions that their sole purpose is to render a view, then you are going to love this. 
+You no longer have to declare empty actions, MR will look in your views folder and display that view automatically. If view is not found a 404 is thrown. 
+
+Added new helper called ActionHelper that invokes the specified child action and returns the result inline or as an HTML string, aka MS MVC Html.RenderAction and Html.Action.
+
+Added support for Action Filter attributes. Filters for dynamic action aren't support atm.
+
+Added the ForHelper. 
 
 2.0
 ==========
