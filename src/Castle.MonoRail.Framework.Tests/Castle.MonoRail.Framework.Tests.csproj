@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)\..\..</RootPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{844F5EC4-9224-42A9-986D-CE645AC970F2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">NET40-Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Castle.MonoRail.Framework.Tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Castle.MonoRail.Framework.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+    <OutputPath>bin\NET40-Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;PHYSICALASSEMBLY DOTNET DOTNET40 CLIENTPROFILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+    <OutputPath>bin\NET40-Release\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;PHYSICALASSEMBLY DOTNET DOTNET40 CLIENTPROFILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <OutputPath>bin\NET35-Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PHYSICALASSEMBLY DOTNET DOTNET35</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <OutputPath>bin\NET35-Release\</OutputPath>
+    <DefineConstants>TRACE;PHYSICALASSEMBLY DOTNET DOTNET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="Castle.Components.Pagination, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\$(BuildConfigKey)\Castle.Components.Pagination.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Components.Validator, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\$(BuildConfigKey)\Castle.Components.Validator.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\$(BuildConfigKey)\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\$(BuildConfigKey)\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.0.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.5.0.1, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\Castle.MonoRail.ActiveRecordSupport\Castle.MonoRail.ActiveRecordSupport.csproj">
+      <Project>{2409063E-BE05-4596-A677-758096D1C759}</Project>
+      <Name>Castle.MonoRail.ActiveRecordSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Castle.MonoRail.Framework\Castle.MonoRail.Framework.csproj">
+      <Name>Castle.MonoRail.Framework</Name>
+      <Project>{EC393863-333E-49CE-94A6-654B9F323954}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Castle.MonoRail.WindsorExtension\Castle.MonoRail.WindsorExtension.csproj">
+      <Project>{6C51A1E3-7F20-4696-BFD6-829134678341}</Project>
+      <Name>Castle.MonoRail.WindsorExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="contentinfs.vm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="Content\contentinassembly.vm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="Content\zdonotlist.bad">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\notinassembly.vm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Actions\ActionMethodExecutorCompatibleTestCase.cs" />
+    <Compile Include="Actions\ActionMethodExecutorTestCase.cs" />
+    <Compile Include="Actions\DefaultActionSelectorTestCase.cs" />
+    <Compile Include="Actions\DynamicActionExecutorTestCase.cs" />
+    <Compile Include="Async\AsyncControllerTestCase.cs" />
+    <Compile Include="Async\AsyncIntegrationTestCase.cs" />
+    <Compile Include="Async\ControllerWithAsyncAction.cs" />
+    <Compile Include="Async\ControllerWithAsyncActionAndHelpers.cs" />
+    <Compile Include="Async\ControllerWithAsyncActionThrowOnBegin.cs" />
+    <Compile Include="Async\ControllerWithAsyncActionThrowOnAsync.cs" />
+    <Compile Include="Async\ControllerWithAsyncActionThrowOnEnd.cs" />
+    <Compile Include="Async\ControllerWithBeginIndexAndIndex.cs" />
+    <Compile Include="Async\ControllerWithBeginIndexWithoutEndIndex.cs" />
+    <Compile Include="Async\ControllerWithTwoBeginIndex.cs" />
+    <Compile Include="Async\ControllerWithTwoEndActions.cs" />
+    <Compile Include="Bugs\MR-ISSUE-472.cs" />
+    <Compile Include="Bugs\MR-ISSUE-518.cs" />
+    <Compile Include="Bugs\MR-ISSUE-535.cs" />
+    <Compile Include="Bugs\MR-ISSUE-476.cs" />
+    <Compile Include="Configuration\SmptConfigTestCase.cs" />
+    <Compile Include="Configuration\ViewEngineConfigTestCase.cs" />
+    <Compile Include="Controllers\AccessibleThroughTestCase.cs" />
+    <Compile Include="Controllers\Clients\ClientCartController.cs" />
+    <Compile Include="Controllers\Clients\ClientContactController.cs" />
+    <Compile Include="Controllers\Clients\ClientHomeController.cs" />
+    <Compile Include="Controllers\Clients\OtherController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ControllerTestCase.cs" />
+    <Compile Include="Controllers\ControllerWithAccessibleThroughTestCase.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Products\CartController.cs" />
+    <Compile Include="Controllers\Products\ListController.cs" />
+    <Compile Include="Controllers\SmartDispatcherSimpleBindingTestCase.cs" />
+    <Compile Include="Filters\ActionLevelFiltersTestCase.cs" />
+    <Compile Include="Filters\ControllerLevelFiltersTestCase.cs" />
+    <Compile Include="Filters\DynamicActionLevelFilterTestCase.cs" />
+    <Compile Include="FlashTestCase.cs" />
+    <Compile Include="Handlers\MRHandlerFactoryTestCase.cs" />
+    <Compile Include="Handlers\ResourceFileHandlerTestCase.cs" />
+    <Compile Include="Helpers\AbstractHelperTestCase.cs" />
+    <Compile Include="Helpers\AjaxHelper2TestCase.cs" />
+    <Compile Include="Helpers\DateFormatHelperTestCase.cs" />
+    <Compile Include="Helpers\DictHelperTestCase.cs" />
+    <Compile Include="Helpers\FormHelperCheckboxFieldListTestCase.cs" />
+    <Compile Include="Helpers\FormHelperSelectTestCase.cs" />
+    <Compile Include="Helpers\FormHelperSetOperation.cs" />
+    <Compile Include="Helpers\FormHelperTestCase.cs" />
+    <Compile Include="Helpers\PaginationHelperTestCase.cs" />
+    <Compile Include="Helpers\ScriptaculousHelperTestCase.cs" />
+    <Compile Include="Helpers\TextHelperTestCase.cs" />
+    <Compile Include="Helpers\UrlHelperTestCase.cs" />
+    <Compile Include="Helpers\Validations\FormValidationTestCase.cs" />
+    <Compile Include="Helpers\Validations\JQueryFormValidationTestCase.cs" />
+    <Compile Include="Helpers\Validations\JQueryHelperTestCase.cs" />
+    <Compile Include="Helpers\WizardHelperTestCase.cs" />
+    <Compile Include="JSGeneration\DynamicDispatcherTestCase.cs" />
+    <Compile Include="JSGeneration\JQueryElementGeneratorTestCase.cs" />
+    <Compile Include="JSGeneration\JQueryGeneratorTestCase.cs" />
+    <Compile Include="JSGeneration\JSCodeGeneratorTestCase.cs" />
+    <Compile Include="JSGeneration\JSGeneratorDispatcherBaseTestCase.cs" />
+    <Compile Include="JSGeneration\PrototypeElementGeneratorTestCase.cs" />
+    <Compile Include="JSGeneration\PrototypeGeneratorTestCase.cs" />
+    <Compile Include="JSON\JsonDataBinderTestCase.cs" />
+    <Compile Include="JSON\JsonHelperTestCase.cs" />
+    <Compile Include="MockObjectTests\StubEngineContextTest.cs" />
+    <Compile Include="Providers\DefaultControllerDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultFilterDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultHelperDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultLayoutDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultRescueDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultResourceDescriptorProviderTestCase.cs" />
+    <Compile Include="Providers\DefaultTransformFilterDescriptorProviderTestCase.cs" />
+    <Compile Include="RedirectSupportTestCase.cs" />
+    <Compile Include="Rescues\ActionLevelRescuesTestCase.cs" />
+    <Compile Include="Rescues\ControllerLevelRescuesTestCase.cs" />
+    <Compile Include="Rescues\CustomRescueControllerTestCase.cs" />
+    <Compile Include="Resources\ActionsWithResourcesTestCase.cs" />
+    <Compile Include="Resources\ControllerWithResourcesTestCase.cs" />
+    <Compile Include="Resources\DefaultResourceFactoryTestCase.cs" />
+    <Compile Include="Routing\BaseRuleTestFixture.cs" />
+    <Compile Include="Routing\PatternRouteCreateUrlTestCase.cs" />
+    <Compile Include="Routing\PatternRouteMatchTestCase.cs" />
+    <Compile Include="Routing\RoutingEngineCreateUrlTestCase.cs" />
+    <Compile Include="Routing\RoutingEngineTestCase.cs" />
+    <Compile Include="Services\ControllerTreeTestCase.cs" />
+    <Compile Include="Services\DefaultViewEngineManagerPriorityTestCase.cs" />
+    <Compile Include="Services\JQueryAjaxProxyGeneratorTestCase.cs" />
+    <Compile Include="Services\DefaultControllerFactoryTestCase.cs" />
+    <Compile Include="Services\DefaultMonoRailContainerTestCase.cs" />
+    <Compile Include="Services\DefaultUrlBuilderRouteIntegrationTestCase.cs" />
+    <Compile Include="Services\DefaultUrlBuilderTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\DefaultUrlTokenizerTestCase.cs" />
+    <Compile Include="Services\EmailTemplateServiceTestCase.cs" />
+    <Compile Include="Services\FileAssemblyViewSourceLoaderTestCase.cs" />
+    <Compile Include="Services\NewtonsoftJSONSerializerTestCase.cs" />
+    <Compile Include="Services\PrototypeAjaxProxyGeneratorTestCase.cs" />
+    <Compile Include="Services\StaticResourceRegistry\DefaultStaticResourceRegistryTestCase.cs" />
+    <Compile Include="TransformFilters\TransformFilterTestCase.cs" />
+    <Compile Include="UrlPartsBuilderTestCase.cs" />
+    <Compile Include="ViewComponents\AuthenticatedContentTestCase.cs" />
+    <Compile Include="ViewComponents\CombineJSViewComponentTestCase.cs" />
+    <Compile Include="ViewComponents\DefaultViewComponentRegistryTests.cs" />
+    <Compile Include="ViewComponents\DiggStylePaginationTestCase.cs" />
+    <Compile Include="ViewComponents\SelectStylePaginationTestCase.cs" />
+    <Compile Include="ViewEngines\ViewEngineBaseTestCase.cs" />
+    <Compile Include="WikiFormatterTestCase.cs" />
+    <Compile Include="WindsorIntegration\FacilityTestCase.cs" />
+    <Compile Include="Wizards\WizardActionProviderTestCase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handlers\Files\simplerequest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Language.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\StaticResourceRegistry\DummyRes.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RootPath)\Settings.proj" />
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(BuildScriptsPath)\Castle.Common.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -16,14 +16,16 @@ REM ****************************************************************************
 
 ECHO This script builds the project in Release configuration
 
-CALL buildscripts\build.cmd NET35 ClickToBuild
+SET CLICKTOBUILD=1
+CALL buildscripts\build.cmd
+SET CLICKTOBUILD=
 
 IF %ERRORLEVEL% NEQ 0 GOTO err
 ECHO **************************************************************
 ECHO The binaries can be found in the following folder:
-ECHO build\NET35\Release\
+ECHO %__OUTDIR__%
 ECHO **************************************************************
 
 :err
 PAUSE
-EXIT /B %ERRORLEVEL%
+@EXIT /B %ERRORLEVEL%
