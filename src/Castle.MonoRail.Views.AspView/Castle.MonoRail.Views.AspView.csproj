@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)\..\..</RootPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">NET40-Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CB573557-9BB1-4F5B-916C-0AD002B8B2BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Castle.MonoRail.Views.AspView</RootNamespace>
+    <AssemblyName>Castle.MonoRail.Views.AspView</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+    <OutputPath>bin\NET40-Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;PHYSICALASSEMBLY DOTNET DOTNET40 CLIENTPROFILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+	</TargetFrameworkProfile>
+    <OutputPath>bin\NET40-Release\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;PHYSICALASSEMBLY DOTNET DOTNET40 CLIENTPROFILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\NET40-Release\Castle.MonoRail.Views.AspView.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <OutputPath>bin\NET35-Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PHYSICALASSEMBLY DOTNET DOTNET35</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <OutputPath>bin\NET35-Release\</OutputPath>
+    <DefineConstants>TRACE;PHYSICALASSEMBLY DOTNET DOTNET35</DefineConstants>
+    <DocumentationFile>bin\NET35-Release\Castle.MonoRail.Views.AspView.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\$(BuildConfigKey)\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\buildscripts\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AspViewBase.cs" />
+    <Compile Include="AspViewBaseWithGenericTypedInterface.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Configuration\AspViewConfigurationSection.cs" />
+    <Compile Include="AspViewEngine.cs" />
+    <Compile Include="Configuration\AspViewEngineOptions.cs" />
+    <Compile Include="AspViewException.cs" />
+    <Compile Include="Compiler\AbstractCompiler.cs" />
+    <Compile Include="Compiler\Adapters\DefaultCodeProviderAdapter.cs" />
+    <Compile Include="Compiler\Adapters\DefaultFileSystemAdapter.cs" />
+    <Compile Include="Compiler\Adapters\ICodeProviderAdapter.cs" />
+    <Compile Include="Compiler\Adapters\IFileSystemAdapter.cs" />
+    <Compile Include="Compiler\AspViewCompilerOptions.cs" />
+    <Compile Include="Compiler\CompilationContext.cs" />
+    <Compile Include="Compiler\Factories\CSharpCodeProviderAdapterFactory.cs" />
+    <Compile Include="Compiler\Factories\ICodeProviderAdapterFactory.cs" />
+    <Compile Include="Compiler\ICompilationContext.cs" />
+    <Compile Include="Compiler\IPreProcessor.cs" />
+    <Compile Include="Compiler\MarkupTransformers\DefaultMarkupTransformersProvider.cs" />
+    <Compile Include="Compiler\MarkupTransformers\FullSiteRootMarkupTransformer.cs" />
+    <Compile Include="Compiler\MarkupTransformers\IMarkupTransformer.cs" />
+    <Compile Include="Compiler\MarkupTransformers\IMarkupTransformersProvider.cs" />
+    <Compile Include="Compiler\MarkupTransformers\InlineOutputDirectiveMarkupTransformer.cs" />
+    <Compile Include="Compiler\MarkupTransformers\SiteRootMarkupTransformer.cs" />
+    <Compile Include="Compiler\OfflineCompiler.cs" />
+    <Compile Include="Compiler\OnlineCompiler.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ChainingStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ConfigurationImportStatementsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ContentSubstitutionStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\DefaultImportStatementsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\DefaultPreCompilationStepsProvider.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\DetermineBaseClassStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\EmbededServerScriptStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ExtractImportStatementsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\FakeMasterPageDesignSupportStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ImportStatementsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\IPreCompilationStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\IPreCompilationStepsProvider.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\LayoutContentPlaceHolderSubstitutionStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\MarkupTransformationsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ProcessPropertiesStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ProcessViewBodyStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\RenderConcreteClassStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ScriptToCodeTransformer.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ServerSideCommentStripperStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\SubViewTagsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ViewComponentTagsStep.cs" />
+    <Compile Include="Compiler\PreCompilationSteps\ViewFilterTagsStep.cs" />
+    <Compile Include="Compiler\PreProcessor.cs" />
+    <Compile Include="Compiler\Resolve.cs" />
+    <Compile Include="Compiler\SourceFile.cs" />
+    <Compile Include="Compiler\StatementProcessors\EqualsAndParenthesisStatementProcessor.cs" />
+    <Compile Include="Compiler\StatementProcessors\EqualsStatementProcessor.cs" />
+    <Compile Include="Compiler\StatementProcessors\IStatementProcessor.cs" />
+    <Compile Include="Compiler\StatementProcessors\OutputMethodGenerators\EncodedOutputMethodGenerator.cs" />
+    <Compile Include="Compiler\StatementProcessors\OutputMethodGenerators\IOutputMethodGenerator.cs" />
+    <Compile Include="Compiler\StatementProcessors\OutputMethodGenerators\OutputMethodGenerator.cs" />
+    <Compile Include="Compiler\StatementProcessors\SharpStatementProcessor.cs" />
+    <Compile Include="Compiler\StatementProcessors\StatementInfo.cs" />
+    <Compile Include="Compiler\Utilities.cs" />
+    <Compile Include="Compiler\ViewProperty.cs" />
+    <Compile Include="Compiler\WebCompilationContext.cs" />
+    <Compile Include="Configuration\IAspViewConfigurationEvents.cs" />
+    <Compile Include="Configuration\CompilerOptionsBuilder.cs" />
+    <Compile Include="IAspViewEngineTestAccess.cs" />
+    <Compile Include="IHelpersAccesor.cs" />
+    <Compile Include="Internal\ParametersDictionary.cs" />
+    <Compile Include="Internal\RegularExpressions.cs" />
+    <Compile Include="Internal\TabbedStringWriter.cs" />
+    <Compile Include="Internal\ViewPropertiesDictionary.cs" />
+    <Compile Include="IViewBase.cs" />
+    <Compile Include="IViewBaseInternal.cs" />
+    <Compile Include="IViewFilter.cs" />
+    <Compile Include="ReferencedAssembly.cs" />
+    <Compile Include="ViewAtDesignTime.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAtDesignTimeWithGenericTypedInterface.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewComponentContext.cs" />
+    <Compile Include="ViewComponentSectionRendereDelegate.cs" />
+    <Compile Include="ViewFilters\HtmlDecodeViewFilter.cs" />
+    <Compile Include="ViewFilters\HtmlEncodeViewFilter.cs" />
+    <Compile Include="ViewFilters\LowerCaseViewFilter.cs" />
+    <Compile Include="ViewFilters\UpperCaseViewFilter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Castle.MonoRail.Framework\Castle.MonoRail.Framework.csproj">
+      <Project>{EC393863-333E-49CE-94A6-654B9F323954}</Project>
+      <Name>Castle.MonoRail.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RootPath)\Settings.proj" />
+  <PropertyGroup>
+    <ProjectName>Castle.MonoRail.Views.AspView</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(BuildScriptsPath)\Castle.Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

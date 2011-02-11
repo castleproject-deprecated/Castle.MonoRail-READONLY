@@ -5,7 +5,7 @@
 
 	Project Settings file for VS and external build files
 
-Copyright 2004-2010 Castle Project - http://www.castleproject.org/
+Copyright 2004-2011 Castle Project - http://www.castleproject.org/
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ limitations under the License.
 ***********************************************************************************************
 -->
 
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="_InitializeDynamicProperties">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<!-- Root Path definition relative for actual build file -->
 	<PropertyGroup>
@@ -42,31 +42,24 @@ limitations under the License.
 		<BuildScriptsPath Condition="'$(BuildScriptsPath)' ==''">$(RootPath)\buildscripts</BuildScriptsPath>
 
 	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- 
+		Specify additional items to package here, they are added to the package
+		in addition to automatically detected dependencies.
+		The items are resolved relative to $(OutputPath)
+		-->
+		<PackageFiles Include="$(OutputPath)NHibernate.dll" />
+		<PackageFiles Include="$(OutputPath)Iesi.Collections.dll" />
+		<PackageFiles Include="$(OutputPath)Remotion.Data.Linq.dll" />
+		<PackageFiles Include="$(OutputPath)log4net.dll" />
+		<PackageFiles Include="$(OutputPath)Antlr3.Runtime.dll" />
+		<PackageFiles Include="$(OutputPath)Newtonsoft.Json.dll" />
+		<PackageFiles Include="$(OutputPath)anrControls.Markdown.NET.dll" />
+		<PackageFiles Include="$(OutputPath)Boo.Lang.dll" />
+		<PackageFiles Include="$(OutputPath)Boo.Lang.*.dll" />
+	</ItemGroup>
 	
-	<PropertyGroup>
-		<BuildConfigKey Condition="$(BuildConfigKey)==''">NET35</BuildConfigKey>
-		<Configuration Condition="$(Configuration)==''">Debug</Configuration>
-		<TargetFrameworkProfile></TargetFrameworkProfile>
-	</PropertyGroup>
-
-	<Target Name="_InitializeDynamicProperties">
-		<PropertyGroup>
-			<!-- 
-			Specify additional items to package here, they are added to the package
-			in addition to automatically detected dependencies.
-			-->
-			<PackageFiles>
-				$(OutputPath)NHibernate.*;
-				$(OutputPath)Iesi.*;
-				$(OutputPath)Antlr3.*;
-				$(OutputPath)Boo.*;
-				$(OutputPath)Newtonsoft.Json.*;
-				$(OutputPath)log4net.*;
-				$(OutputPath)anrControls.Markdown.NET.*
-			</PackageFiles>
-		</PropertyGroup>
-	</Target>
-
 
 	<!-- Import framework version specific settings, like Settings-v3.5 or Settings-v4.0 -->
 	<Import
