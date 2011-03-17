@@ -1,3 +1,13 @@
+2.1 RC
+==========
+
+- Updated to AR 3 RC and NHibernate 3.1.0 GA
+- Updated to Windsor 2.5.3
+- Updated to Auto Tx 2.5.1
+
+- Wrapped regular expression in quotes in the jQuery validation generator
+- DefaultControllerFactory initializing controller logger
+
 2.1 Beta
 ==========
 - Major code cleanup + reformatting
