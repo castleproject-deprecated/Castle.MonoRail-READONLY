@@ -1,4 +1,4 @@
-// Copyright 2004-2010 Castle Project - http://www.castleproject.org/
+// Copyright 2004-2011 Castle Project - http://www.castleproject.org/
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -237,7 +237,7 @@ namespace Castle.MonoRail.Framework.Tests.Helpers.Validations
 			helper.Pop();
 			Assert.AreEqual(newLine + 
 				"<script type=\"text/javascript\">/*<![CDATA[*/" + newLine + 
-"jQuery( document ).ready( function() { jQuery(\"#form1\").validate( {messages:{\"model.RegExEmailField\":{ regExp: \"Field has an invalid content\" }}, rules:{\"model.RegExEmailField\":{ regExp: [\\w-]+@([\\w-]+\\.)+[\\w-]+ }}} );" + newLine + 
+"jQuery( document ).ready( function() { jQuery(\"#form1\").validate( {messages:{\"model.RegExEmailField\":{ regExp: \"Field has an invalid content\" }}, rules:{\"model.RegExEmailField\":{ regExp: \"[\\w-]+@([\\w-]+\\.)+[\\w-]+\" }}} );" + newLine + 
 "jQuery.validator.addMethod('greaterThan', function(value, element, param) { return ( IsNaN( value ) && IsNaN( jQuery(param).val() ) ) || ( value > jQuery(param).val() ); }, 'Must be greater than {0}.' );" + newLine + 
 "jQuery.validator.addMethod('lesserThan', function(value, element, param) { return ( IsNaN( value ) && IsNaN( jQuery(param).val() ) ) || ( value < jQuery(param).val() ); }, 'Must be lesser than {0}.' );" + newLine + 
 "jQuery.validator.addMethod('notEqualTo', function(value, element, param) { return value != jQuery(param).val(); }, 'Must not be equal to {0}.' );" + newLine + 
